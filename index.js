@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const PORT = 8000;
 const { MONGO_URI } = require('./keys/index');
 require('./models/user');
+require('./models/post');
+
 const cors = require('cors');
 const corsOptions = {
 	origin: '*',
@@ -15,6 +17,7 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(require('./routes/auth'));
+// app.use(require('./routes/post'));
 
 mongoose.connect(MONGO_URI);
 mongoose.connection.on('connected', () => {
