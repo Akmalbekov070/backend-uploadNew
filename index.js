@@ -3,8 +3,6 @@ const app = express();
 const mongoose = require('mongoose');
 const PORT = 8000;
 const { MONGO_URI } = require('./keys/index');
-require('./models/user');
-require('./models/post');
 
 const cors = require('cors');
 const corsOptions = {
@@ -12,14 +10,16 @@ const corsOptions = {
 	credentials: true,
 	optionSuccesStatus: 200,
 };
+mongoose.connect(MONGO_URI);
 
 app.use(cors(corsOptions));
+require('./models/user');
+require('./models/post');
 
 app.use(express.json());
 app.use(require('./routes/auth'));
-// app.use(require('./routes/post'));
+app.use(require('./routes/post'));
 
-mongoose.connect(MONGO_URI);
 mongoose.connection.on('connected', () => {
 	console.log('MongoDB connected succesfully');
 });

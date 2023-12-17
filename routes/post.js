@@ -9,15 +9,15 @@ router.post('/createpost', login, (req, res) => {
 	if (!title || !body) {
 		return res.status(422).json({ error: 'Please all the field' });
 	}
-	const postes = new Post({
+	const post = new Post({
 		title,
 		body,
 		postedBy: req.user,
 	});
-	postes
+	post
 		.save()
 		.then(result => {
-			res.json({ postes: result });
+			res.json({ post: result });
 		})
 		.catch(err => {
 			console.log(err);
